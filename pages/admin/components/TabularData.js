@@ -7,8 +7,10 @@ import {
   Row,
 } from "reactstrap";
 
-
 const TabularData = () => {
+  const seeAll = () => {
+    window.location.href = '/admin/tables';
+  }
   return (
     <Card className="shadow">
       <CardHeader className="border-0">
@@ -20,7 +22,7 @@ const TabularData = () => {
             <Button
               color="primary"
               href="#pablo"
-              onClick={(e) => e.preventDefault()}
+              onClick={seeAll}
               size="sm"
             >
               See all

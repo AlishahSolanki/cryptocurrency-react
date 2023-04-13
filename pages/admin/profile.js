@@ -16,12 +16,12 @@ import {
 // layout for this page
 import Admin from "layouts/Admin.js";
 // core components
-import UserHeader from "components/Headers/UserHeader.js";
+import Header from "components/Headers/Header";
 
 function Profile() {
     return (
         <>
-            <UserHeader />
+            <Header />
             {/* Page content */}
             <Container className="mt--7" fluid>
                 <Row>

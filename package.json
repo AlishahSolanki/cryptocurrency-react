@@ -1,17 +1,8 @@
 {
-    "name": "dashboard_cch",
+    "name": "crypto_currency_viz_pred",
     "version": "0.0.1",
-    "author": "Creative Tim",
     "license": "MIT",
-    "homepage": "https://unknow.com",
-    "description": "NextJS version of Argon Dashboard React by Creative Tim",
-    "bugs": {
-        "url": "https://github.com/AlishahSolanki/cryptocurrency-react.git"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/AlishahSolanki/cryptocurrency-react.git"
-    },
+    "description": "Crypto Currency Visualization and Prediction",
     "scripts": {
         "start": "next start",
         "build": "next build",
