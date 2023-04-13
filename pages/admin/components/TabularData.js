@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -6,8 +7,16 @@ import {
   Table,
   Row,
 } from "reactstrap";
+import { getAllCoins } from '../../../services/coins';
 
 const TabularData = () => {
+  const [coins, setCoins] = useState([]);
+
+  useEffect(async () => {
+    const list = await getAllCoins();
+    setCoins(list.slice(0, 5))
+  }, []);
+
   const seeAll = () => {
     window.location.href = '/admin/tables';
   }
@@ -21,7 +30,7 @@ const TabularData = () => {
           <div className="col text-right">
             <Button
               color="primary"
-              href="#pablo"
+              href="#"
               onClick={seeAll}
               size="sm"
             >
@@ -30,143 +39,26 @@ const TabularData = () => {
           </div>
         </Row>
       </CardHeader>
-      <Table
-        className="align-items-center table-flush"
-        responsive
-      >
+      <Table className="align-items-center table-flush" responsive>
         <thead className="thead-light">
           <tr>
-            <th scope="col">Jobs</th>
-            <th scope="col">Client</th>
-            <th scope="col">Job Prority</th>
+            <th scope="col">#</th>
+            <th scope="col">Coin</th>
+            <th scope="col">Price</th>
+            <th scope="col">Volumn</th>
+            <th scope="col">Market Cap</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">Facebook</th>
-            <td>1,480</td>
-            <td>
-              <div className="d-flex align-items-center">
-                <span className="mr-2">
-                  60%
-                </span>
-                <div>
-                  <Progress
-                    max="100"
-                    value="60"
-                    barClassName="bg-gradient-danger"
-                  />
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">Facebook</th>
-            <td>5,480</td>
-            <td>
-              <div className="d-flex align-items-center">
-                <span className="mr-2">
-                  70%
-                </span>
-                <div>
-                  <Progress
-                    max="100"
-                    value="70"
-                    barClassName="bg-gradient-success"
-                  />
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">Google</th>
-            <td>4,807</td>
-            <td>
-              <div className="d-flex align-items-center">
-                <span className="mr-2">
-                  80%
-                </span>
-                <div>
-                  <Progress
-                    max="100"
-                    value="80"
-                  />
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">Instagram</th>
-            <td>3,678</td>
-            <td>
-              <div className="d-flex align-items-center">
-                <span className="mr-2">
-                  75%
-                </span>
-                <div>
-                  <Progress
-                    max="100"
-                    value="75"
-                    barClassName="bg-gradient-info"
-                  />
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">twitter</th>
-            <td>2,645</td>
-            <td>
-              <div className="d-flex align-items-center">
-                <span className="mr-2">
-                  30%
-                </span>
-                <div>
-                  <Progress
-                    max="100"
-                    value="30"
-                    barClassName="bg-gradient-warning"
-                  />
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">twitter</th>
-            <td>2,645</td>
-            <td>
-              <div className="d-flex align-items-center">
-                <span className="mr-2">
-                  30%
-                </span>
-                <div>
-                  <Progress
-                    max="100"
-                    value="30"
-                    barClassName="bg-gradient-warning"
-                  />
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">twitter</th>
-            <td>2,645</td>
-            <td>
-              <div className="d-flex align-items-center">
-                <span className="mr-2">
-                  30%
-                </span>
-                <div>
-                  <Progress
-                    max="100"
-                    value="30"
-                    barClassName="bg-gradient-warning"
-                  />
-                </div>
-              </div>
-            </td>
-          </tr>
+          {coins.map((coin, index) =>
+            <tr key={coin.CoinInfo.id}>
+              <td>{index + 1}</td>
+              <td>{coin.CoinInfo.Name}</td>
+              <td>TBC</td>
+              <td>{coin.ConversionInfo.TotalVolume24H}</td>
+              <td>{coin.ConversionInfo.Supply}</td>
+            </tr>
+          )}
         </tbody>
       </Table>
     </Card>
