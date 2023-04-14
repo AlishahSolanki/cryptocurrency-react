@@ -4,20 +4,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 // nodejs library to set properties for components
 import { PropTypes } from "prop-types";
-import Image from "next/image";
 // reactstrap components
 import {
-    Button,
-    Card,
-    CardHeader,
-    CardBody,
-    CardTitle,
     Collapse,
     DropdownMenu,
     DropdownItem,
     UncontrolledDropdown,
     DropdownToggle,
-    FormGroup,
     Form,
     Input,
     InputGroupAddon,
@@ -29,8 +22,6 @@ import {
     NavItem,
     NavLink,
     Nav,
-    Progress,
-    Table,
     Container,
     Row,
     Col,
@@ -114,11 +105,7 @@ function Sidebar(props) {
     const { routes, logo } = props;
     let navbarBrand = (
         <NavbarBrand href="#pablo" className="pt-0">
-            <img
-                alt={logo.imgAlt}
-                className="navbar-brand-img"
-                src={logo.imgSrc}
-            />
+            CSCE 5320 (Team 6)
         </NavbarBrand>
     );
     return (
