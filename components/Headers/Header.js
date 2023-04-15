@@ -17,17 +17,19 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
-// ChartJS.plugins.register(
-//     CategoryScale,
-//     LinearScale,
-//     PointElement,
-//     LineElement,
-//     Title,
-//     Tooltip,
-//     Filler,
-//     Legend
-// );
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Filler,
+    Legend
+);
 const options = {
+    // suggestedMin?: number;
+    // suggestedMax?: number;
     responsive: true,
     plugins: {
         legend: {
@@ -38,11 +40,40 @@ const options = {
             text: "Chart.js Line Chart",
         },
     },
+    scales: {
+        xAxes: [
+            {
+                display: false,
+                // ticks: {
+                //     beginAtZero: true,
+                // steps: 10,
+                // stepValue: 5,
+                // max: 100
+                // },
+                // scaleLabel: {
+                //     display: true,
+                //     labelString: "Month",
+                // },
+            },
+        ],
+        yAxes: [
+            {
+                display: false,
+                // ticks: {
+                //     beginAtZero: true,
+                //     steps: 10000,
+                //     stepValue: 1,
+                //     max: 30500,
+                //     min: 30200,
+                // },
+            },
+        ],
+    },
 };
 
 const labels = ["January", "February", "March", "April", "May", "June", "July"];
 const data = {
-    // labels,
+    labels,
     datasets: [
         {
             fill: true,
@@ -65,19 +96,19 @@ function Header() {
     const getDataEveryMin = () => {
         let params = {
             fsym: "BTC",
-            tsym: "USDT",
+            tsym: "USD",
             limit: 20,
         };
         dispatch(
             request(
                 DUMP,
-                constant.histominute,
+                constant.histohour,
                 "get",
                 params,
                 true,
                 (res) => {
                     const newData = {
-                        labels: res.data.Data.map((item) => item.open),
+                        // labels: res.data.Data.map((item) => item.open),
                         datasets: [
                             {
                                 fill: true,
@@ -137,12 +168,28 @@ function Header() {
                                             </span>
                                         </p> */}
                                         <div
-                                            // className="chart"
-                                            style={{ height: 200 }}
+                                            className="chart"
+                                            // style={{ height: 600 }}
                                         >
                                             {dataBitcoin && (
                                                 <Line
-                                                    options={options}
+                                                    // style={{ height: 400 }}
+                                                    options={{
+                                                        scales: [
+                                                            {
+                                                                axis: "y",
+                                                                // min: 30493.01,
+                                                                // max: 30354.5,
+                                                                beginAtZero: true,
+                                                                // suggestedMin: 30250,
+                                                                // suggestedMax: 31000,
+                                                                ticks: {
+                                                                    stepSize: 1000,
+                                                                    count: 10,
+                                                                },
+                                                            },
+                                                        ],
+                                                    }}
                                                     data={dataBitcoin}
                                                 />
                                             )}

@@ -28,16 +28,14 @@ const Dashboard = (props) => {
             <Container className="mt--7" fluid>
                 <Row>
                     <Col className="mb-5 mb-xl-0" xl="7">
-                        <MainChart />
+                        {/* <MainChart /> */}
                     </Col>
                     <Col xl="5">
                         <TabularData />
                     </Col>
                 </Row>
                 <Row className="mt-5">
-                    <Col xl="4">
-                        <PerformanceChart />
-                    </Col>
+                    <Col xl="4">{/* <PerformanceChart /> */}</Col>
                     <Col className="mb-5 mb-xl-0" xl="8">
                         <TabularData2 />
                     </Col>

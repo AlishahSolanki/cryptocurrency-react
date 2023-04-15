@@ -13,8 +13,7 @@ import reducers from "../reducers";
 import rootSaga from "../sagas";
 // import AsyncStorage from "@react-native-community/async-storage";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
-//const isDebuggingInChrome = __DEV__ && !!window.navigator.userAgent;
-
+// const isDebuggingInChrome = __DEV__ && !!window.navigator.userAgent;
 /* redux logger config */
 const logger = createLogger({
     predicate: () => true,

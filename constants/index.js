@@ -14,6 +14,7 @@ const constant = {
     top: "top/",
     histominute: "histominute",
     totalvolfull: "totalvolfull",
+    histohour: "histohour",
     //Socket Constants
     //     failure: { action: "failure", packet_code: 9900 },
     //Location Constants
