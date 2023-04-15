@@ -1,13 +1,63 @@
-import React, { useEffect } from "react";
-
-// reactstrap components
+import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
-import { HISTORY_BTC_MIN } from "redux/actions/ActionTypes";
+import { HISTORY_BTC_MIN, DUMP } from "redux/actions/ActionTypes";
 import { request } from "redux/actions/ServiceAction";
 import constant from "../../constants";
 import { useDispatch, useSelector } from "react-redux";
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Filler,
+    Legend,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+import { faker } from "@faker-js/faker";
+// ChartJS.plugins.register(
+//     CategoryScale,
+//     LinearScale,
+//     PointElement,
+//     LineElement,
+//     Title,
+//     Tooltip,
+//     Filler,
+//     Legend
+// );
+const options = {
+    responsive: true,
+    plugins: {
+        legend: {
+            position: "top",
+        },
+        title: {
+            display: true,
+            text: "Chart.js Line Chart",
+        },
+    },
+};
 
+const labels = ["January", "February", "March", "April", "May", "June", "July"];
+const data = {
+    // labels,
+    datasets: [
+        {
+            fill: true,
+            label: "Dataset 2",
+            data: labels.map(() =>
+                faker.datatype.number({ min: 0, max: 1000 })
+            ),
+            borderColor: "rgb(53, 162, 235)",
+            backgroundColor: "rgba(53, 162, 235, 0.5)",
+        },
+    ],
+};
 function Header() {
+    const [dataBitcoin, setDataBitcoin] = useState(null);
+
     const dispatch = useDispatch();
     useEffect(() => {
         getDataEveryMin();
@@ -15,18 +65,32 @@ function Header() {
     const getDataEveryMin = () => {
         let params = {
             fsym: "BTC",
-            tsym: "GBP",
-            limit: 10,
+            tsym: "USDT",
+            limit: 20,
         };
         dispatch(
             request(
-                HISTORY_BTC_MIN,
+                DUMP,
                 constant.histominute,
                 "get",
                 params,
                 true,
                 (res) => {
-                    console.log("res", res);
+                    const newData = {
+                        labels: res.data.Data.map((item) => item.open),
+                        datasets: [
+                            {
+                                fill: true,
+                                label: "Dataset 2",
+                                data: res.data.Data.map((item) => item.open),
+                                borderColor: "rgb(53, 162, 235)",
+                                backgroundColor: "rgba(53, 162, 235, 0.5)",
+                            },
+                        ],
+                    };
+
+                    setDataBitcoin(newData);
+                    console.log("res", newData);
                 },
                 (error) => {
                     console.log("error", error);
@@ -45,7 +109,7 @@ function Header() {
                             <Col lg="6" xl="3">
                                 <Card className="card-stats mb-4 mb-xl-0">
                                     <CardBody>
-                                        <Row>
+                                        {/* <Row>
                                             <div className="col">
                                                 <CardTitle
                                                     tag="h5"
@@ -71,7 +135,18 @@ function Header() {
                                             <span className="text-nowrap">
                                                 Date
                                             </span>
-                                        </p>
+                                        </p> */}
+                                        <div
+                                            // className="chart"
+                                            style={{ height: 200 }}
+                                        >
+                                            {dataBitcoin && (
+                                                <Line
+                                                    options={options}
+                                                    data={dataBitcoin}
+                                                />
+                                            )}
+                                        </div>
                                     </CardBody>
                                 </Card>
                             </Col>

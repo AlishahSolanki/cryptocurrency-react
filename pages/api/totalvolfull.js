@@ -21,14 +21,10 @@ export default (req, res) => {
 async function handleGetRequest(req, res) {
     try {
         let response = await axios.get(
-            `${process.env.BASE_URL_CRYPTO_COMPARE}${constant.version}${constant.histominute}`,
+            `${process.env.BASE_URL_CRYPTO_COMPARE}${constant.top}${constant.totalvolfull}`,
             { params: { ...req.query, api_key: process.env.API_TOKEN } }
         );
-        if (response?.data?.Data) {
-            res.status(response.status).json(response?.data?.Data);
-        } else {
-            res.status(response.status).json(response.data);
-        }
+        res.status(response.status).json(response.data);
     } catch (error) {
         console.log("error", error);
         res.status(500).send("Server error in creating product");

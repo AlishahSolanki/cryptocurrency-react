@@ -7,16 +7,13 @@
 //
 //https://min-api.cryptocompare.com/data/v2/histominute?fsym=BTC&tsym=GBP&limit=10
 const constant = {
-    //App Constants
-    socketIP: "192.34.60.217",
-    socketPort: "1233",
-    baseURL: "http://localhost:3000/api/",
-    baseImageURL: "http://retrocubedev.com/dev/case_book/public/api/",
-    applicationToken: "api.Pd*!(5675",
     //Services Constants
     login: "login",
     updatePassword: "updatepassword",
+    version: "v2/",
+    top: "top/",
     histominute: "histominute",
+    totalvolfull: "totalvolfull",
     //Socket Constants
     //     failure: { action: "failure", packet_code: 9900 },
     //Location Constants

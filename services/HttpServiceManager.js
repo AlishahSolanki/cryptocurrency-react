@@ -119,11 +119,12 @@ class HttpServiceManager {
                             "\n--------------------------------------------------------------------------------------"
                         );
                         if (response.status >= 200 && response.status < 300) {
-                            resolve({
-                                data: response.data.data,
-                                meta: response.data.meta,
-                                message: response.data.message,
-                            });
+                            resolve(response);
+                            // resolve({
+                            //     data: response.data.,
+                            //     meta: response.data.meta,
+                            //     message: response.data.message,
+                            // });
                         }
                         //hideSpinner();
                     })

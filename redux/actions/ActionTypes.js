@@ -40,6 +40,7 @@ export const FORGOT_PASSWORD = createRequestTypes("FORGOT_PASSWORD");
 export const CHANGE_PASSWORD = createRequestTypes("CHANGE_PASSWORD");
 export const LOGOUT = "LOGOUT";
 export const NO_INTERNET = "NO_INTERNET";
+export const DUMP = createRequestTypes("DUMP");
 //APP RELATED ACTIONS
 export const INFO = createRequestTypes("INFO");
 //ADD HERE
