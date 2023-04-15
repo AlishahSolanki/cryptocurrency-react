@@ -1,9 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // reactstrap components
 import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
+import { HISTORY_BTC_MIN } from "redux/actions/ActionTypes";
+import { request } from "redux/actions/ServiceAction";
+import constant from "../../constants";
+import { useDispatch, useSelector } from "react-redux";
 
 function Header() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        getDataEveryMin();
+    }, []);
+    const getDataEveryMin = () => {
+        let params = {
+            fsym: "BTC",
+            tsym: "GBP",
+            limit: 10,
+        };
+        dispatch(
+            request(
+                HISTORY_BTC_MIN,
+                constant.histominute,
+                "get",
+                params,
+                true,
+                (res) => {
+                    console.log("res", res);
+                },
+                (error) => {
+                    console.log("error", error);
+                }
+            )
+        );
+    };
+
     return (
         <>
             <div className="header bg-gradient-dark pb-8 pt-5 pt-md-8">

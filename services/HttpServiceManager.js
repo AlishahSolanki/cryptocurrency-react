@@ -30,12 +30,13 @@ class HttpServiceManager {
         HttpServiceManager.getInstance().axiosInstance = axios.create({
             baseURL: baseURL,
             timeout: 60000,
-            headers: authHeader,
+            headers: {
+                ...authHeader,
+            },
         });
         HttpServiceManager.getInstance().axiosInstance.interceptors.request.use(
             function (config) {
-                config.headers["Authorization"] =
-                    HttpServiceManager.getInstance().userToken;
+                config.headers["authorization"] = `Bearer `;
                 return config;
             },
             function (error) {

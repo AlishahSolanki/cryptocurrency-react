@@ -18,7 +18,7 @@ import Admin from "layouts/Admin.js";
 // core components
 import Header from "components/Headers/Header.js";
 
-function Clients() {
+const Clients = () => {
     return (
         <>
             <Header />
@@ -335,7 +335,7 @@ function Clients() {
             </Container>
         </>
     );
-}
+};
 
 Clients.layout = Admin;
 

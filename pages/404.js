@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import Router from "next/router";
 
-export default function Error404() {
-  React.useEffect(() => {
-    Router.push("/admin/dashboard");
-  });
+const Error404 = () => {
+    React.useEffect(() => {
+        Router.push("/admin/dashboard");
+    });
 
-  return <div />;
-}
+    return <div />;
+};
+export default Error404;

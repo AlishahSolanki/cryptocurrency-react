@@ -44,3 +44,5 @@ export const NO_INTERNET = "NO_INTERNET";
 export const INFO = createRequestTypes("INFO");
 //ADD HERE
 export const APP_STATE = createRequestTypes("APP_STATE");
+//API RELATED ACTIONS
+export const HISTORY_BTC_MIN = createRequestTypes("HISTORY_BTC_MIN");

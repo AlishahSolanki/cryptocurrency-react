@@ -12,7 +12,7 @@ import {
     Container,
 } from "reactstrap";
 
-function AdminNavbar({ brandText }) {
+const AdminNavbar = ({ brandText }) => {
     return (
         <>
             <Navbar
@@ -42,6 +42,6 @@ function AdminNavbar({ brandText }) {
             </Navbar>
         </>
     );
-}
+};
 
 export default AdminNavbar;

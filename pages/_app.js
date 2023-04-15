@@ -3,79 +3,94 @@ import ReactDOM from "react-dom";
 import App from "next/app";
 import Head from "next/head";
 import Router from "next/router";
-
+import NProgress from "nprogress";
 import PageChange from "../components/PageChange/PageChange.js";
-
 import "../public/assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../public/assets/scss/nextjs-argon-dashboard.scss";
+import "nprogress/nprogress.css";
+import dynamic from "next/dynamic";
+import constant from "../constants";
+import HttpServiceManager from "services/HttpServiceManager";
+import { parseCookies } from "nookies";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "redux/store";
+import { createWrapper } from "next-redux-wrapper";
 
-Router.events.on("routeChangeStart", (url) => {
-    console.log(`Loading: ${url}`);
-    document.body.classList.add("body-page-transition");
-    ReactDOM.render(
-        <PageChange path={url} />,
-        document.getElementById("page-transition")
-    );
-});
-Router.events.on("routeChangeComplete", () => {
-    ReactDOM.unmountComponentAtNode(document.getElementById("page-transition"));
-    document.body.classList.remove("body-page-transition");
-});
-Router.events.on("routeChangeError", () => {
-    ReactDOM.unmountComponentAtNode(document.getElementById("page-transition"));
-    document.body.classList.remove("body-page-transition");
-});
+const TopProgressBar = dynamic(
+    () => {
+        return import("components/Headers/TopProgressBar");
+    },
+    { ssr: false }
+);
+class MyApp extends App {
+    state = { isReduxLoaded: false };
 
-export default class MyApp extends App {
     componentDidMount() {
+        this.callAPI();
         let comment = document.createComment(`
-
-=========================================================
-* * NextJS Argon Dashboard v1.1.0 based on Argon Dashboard React v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/nextjs-argon-dashboard
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/nextjs-argon-dashboard/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-`);
+        `);
         document.insertBefore(comment, document.documentElement);
     }
+
     static async getInitialProps({ Component, router, ctx }) {
+        // const { token } = parseCookies(ctx);
+        // console.log("INIT", token);
         let pageProps = {};
 
-        if (Component.getInitialProps) {
-            pageProps = await Component.getInitialProps(ctx);
-        }
+        // if (Component.getInitialProps) {
+        //     pageProps = await Component.getInitialProps(ctx);
+        // }
 
         return { pageProps };
     }
+
+    callAPI = () => {
+        // console.log("INITcallAPI", getCookies("token"));
+        HttpServiceManager.initialize(process.env.BASE_URL, {
+            // token: process.env.API_TOKEN,
+        });
+    };
+    onBeforeLift = () => {
+        //singleton.storeRef = store;
+
+        this.setState({ isReduxLoaded: true }, () => {
+            //   setTimeout(() => {
+            //     SplashScreen.hide();
+            //   }, 2000);
+        });
+    };
     render() {
         const { Component, pageProps } = this.props;
 
         const Layout = Component.layout || (({ children }) => <>{children}</>);
 
         return (
-            <React.Fragment>
+            <Provider store={store}>
                 <Head>
                     <meta
                         name="viewport"
                         content="width=device-width, initial-scale=1, shrink-to-fit=no"
                     />
-                    <title>Dashboard</title>
-                    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+                    <title>AM Associates CPA</title>
+                    {/* <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> */}
                 </Head>
-                <Layout>
-                    <Component {...pageProps} />
-                </Layout>
-            </React.Fragment>
+                <PersistGate
+                    onBeforeLift={this.onBeforeLift}
+                    persistor={persistor}
+                    loading={null}
+                >
+                    <Layout>
+                        <TopProgressBar />
+                        <Component {...pageProps} />
+                    </Layout>
+                </PersistGate>
+            </Provider>
         );
     }
 }
+
+const makeStore = () => store;
+const wrapper = createWrapper(makeStore);
+export default wrapper.withRedux(MyApp);

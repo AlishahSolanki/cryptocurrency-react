@@ -1,10 +1,12 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import Router from "next/router";
+import HttpServiceManager from "services/HttpServiceManager";
 
-export default function Index() {
-  React.useEffect(() => {
-    Router.push("/admin/dashboard");
-  });
+const Index = () => {
+    React.useEffect(() => {
+        Router.push("/admin/dashboard");
+    });
+    return <div />;
+};
 
-  return <div />;
-}
+export default Index;

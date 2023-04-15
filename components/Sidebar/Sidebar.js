@@ -30,7 +30,7 @@ import {
 
 var ps;
 
-function Sidebar(props) {
+const Sidebar = (props) => {
     // used for checking current route
     const router = useRouter();
     const [collapseOpen, setCollapseOpen] = React.useState(false);
@@ -265,7 +265,7 @@ function Sidebar(props) {
             </Container>
         </Navbar>
     );
-}
+};
 
 Sidebar.defaultProps = {
     routes: [{}],

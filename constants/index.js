@@ -5,6 +5,7 @@
 //  Created by Retrocube on 10/4/2019, 9:13:09 AM.
 //  Copyright © 2019 Retrocube. All rights reserved.
 //
+//https://min-api.cryptocompare.com/data/v2/histominute?fsym=BTC&tsym=GBP&limit=10
 const constant = {
     //App Constants
     socketIP: "192.34.60.217",
@@ -13,14 +14,9 @@ const constant = {
     baseImageURL: "http://retrocubedev.com/dev/case_book/public/api/",
     applicationToken: "api.Pd*!(5675",
     //Services Constants
-    client: "clients",
-    getInfo: "info",
-    companies: "companies",
-    dependent: "dependents",
-    staff: "staff",
-    roles: "roles",
     login: "login",
     updatePassword: "updatepassword",
+    histominute: "histominute",
     //Socket Constants
     //     failure: { action: "failure", packet_code: 9900 },
     //Location Constants
