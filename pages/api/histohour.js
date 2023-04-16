@@ -24,6 +24,7 @@ async function handleGetRequest(req, res) {
             `${process.env.BASE_URL_CRYPTO_COMPARE}${constant.version}${constant.histohour}`,
             { params: { ...req.query, api_key: process.env.API_TOKEN } }
         );
+        console.log('Sanjib histToHour', response)
         if (response?.data?.Data) {
             res.status(response.status).json(response?.data?.Data);
         } else {

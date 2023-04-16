@@ -1,87 +1,23 @@
-var routes = [
-    {
-        id: "dashboard",
-        path: "/dashboard/",
-        name: "Dashboard",
-        icon: "ni ni-tv-2 text-primary",
+import { getAllCoins } from "services/coins";
+
+const routeList = [
+    {id: 'dashboard', name: 'dashboard', icon: 'ni ni-tv-2 text-center text-primary' },
+    {id: 'eth', name: 'Ethereum', icon: `icon-coin eth`},
+    {id: 'btc', name: 'Bitcoin', icon: `icon-coin btc`},
+    {id: 'arb', name: 'Arbitrum', icon: `icon-coin arb`},
+    {id: 'usdt', name: 'Tether', icon: `icon-coin usdt`},
+    {id: 'xrp', name: 'XRP', icon: `icon-coin xrp`},
+    {id: 'busd', name: 'Binance USD', icon: `icon-coin busd`},
+    {id: 'doge', name: 'Doge', icon: `icon-coin doge`},
+    {id: 'sol', name: 'Solana', icon: `icon-coin sol`},
+    {id: 'ada', name: 'Cardano', icon: `icon-coin ada`},
+    {id: 'bnb', name: 'Binance Coin', icon: `icon-coin bnb`}
+]
+const routes = routeList.map(route => ({
+        id: route.id,
+        path: `/${route.id}/`,
+        name: route.name,
+        icon: route.icon,
         layout: "/admin",
-    },
-    {
-        id: "ETH",
-        path: "/eth/",
-        name: "Ethereum",
-        icon: "ni ni-planet text-blue",
-        layout: "/admin",
-    },
-    {
-        id: "BTC",
-        path: "/btc/",
-        name: "Bitcoin",
-        icon: "ni ni-planet text-blue",
-        layout: "/admin",
-    },
-    {
-        id: "ARB",
-        path: "/maps/",
-        name: "Arbitrum",
-        icon: "ni ni-map-big text-blue",
-        layout: "/admin",
-    },
-    {
-        id: "USDT",
-        path: "/usdt/",
-        name: "Tether",
-        icon: "ni ni-planet text-blue",
-        layout: "/admin",
-    },
-    {
-        id: "XRP",
-        path: "/xrp/",
-        name: "XRP",
-        icon: "ni ni-planet text-blue",
-        layout: "/admin",
-    },
-    {
-        id: "BUSD",
-        path: "/busd/",
-        name: "Binance USD",
-        icon: "ni ni-planet text-blue",
-        layout: "/admin",
-    },
-    {
-        id: "DOGE",
-        path: "/doge/",
-        name: "Dogecoin",
-        icon: "ni ni-planet text-blue",
-        layout: "/admin",
-    },
-    {
-        id: "SOL",
-        path: "/sol/",
-        name: "Solana",
-        icon: "ni ni-planet text-blue",
-        layout: "/admin",
-    },
-    {
-        id: "ADA",
-        path: "/ada/",
-        name: "Cardano",
-        icon: "ni ni-planet text-blue",
-        layout: "/admin",
-    },
-    {
-        id: "BNB",
-        path: "/bnb/",
-        name: "Binance Coin",
-        icon: "ni ni-planet text-blue",
-        layout: "/admin",
-    },
-    {
-        id: "icons",
-        path: "/icons/",
-        name: "Icons",
-        icon: "ni ni-planet text-blue",
-        layout: "/admin",
-    },
-];
+}))
 export default routes;

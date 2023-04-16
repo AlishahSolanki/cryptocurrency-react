@@ -25,7 +25,7 @@ const Admin = (props) => {
                 return routes[i].name;
             }
         }
-        return "Dasboard";
+        return "Crypto Currency Visualization and Prediction";
     };
     return (
         <>

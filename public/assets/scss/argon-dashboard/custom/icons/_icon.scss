@@ -63,3 +63,18 @@
     	width: calc(100% - #{$icon-size-sm} - 1);
     }
 }
+
+@mixin coin($coin-name) {
+  &.#{$coin-name} {
+    background-image: url('../../../../img/icons/coins/#{$coin-name}.png');
+  }
+}
+
+.icon-coin {
+	height: 30px;
+	width: 30px;
+	background-position: center;
+	background-size: 30px 30px;
+	@include coin('eth');
+	@include coin('btc');
+}
