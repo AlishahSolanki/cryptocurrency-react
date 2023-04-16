@@ -30,15 +30,12 @@ const Dashboard = (props) => {
                     <Col className="mb-5 mb-xl-0" xl="7">
                         {/* <MainChart /> */}
                     </Col>
-                    <Col xl="5">
+                    <Col xl="12">
                         <TabularData />
                     </Col>
                 </Row>
                 <Row className="mt-5">
                     <Col xl="4">{/* <PerformanceChart /> */}</Col>
-                    <Col className="mb-5 mb-xl-0" xl="8">
-                        <TabularData2 />
-                    </Col>
                 </Row>
             </Container>
         </>

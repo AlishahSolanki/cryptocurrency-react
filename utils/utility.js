@@ -85,6 +85,15 @@ function customError(message, code) {
     error.code = code;
     return error;
 }
+
+function formatCurrency(amount) {
+    console.log(amount)
+    const lang = 'en-US'
+    return amount.toLocaleString(lang, {
+        style: 'currency',
+        currency: 'USD'
+    })
+}
 export default {
     formatSSN,
     validSSN,
@@ -95,4 +104,5 @@ export default {
     formatEIN,
     passwordGenerator,
     customError,
+    formatCurrency
 };

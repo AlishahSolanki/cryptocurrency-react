@@ -8,13 +8,16 @@ import {
   Row,
 } from "reactstrap";
 import { getAllCoins } from '../../../services/coins';
+import Link from "next/link";
 
 const TabularData = () => {
   const [coins, setCoins] = useState([]);
 
   useEffect(async () => {
     const list = await getAllCoins();
-    setCoins(list.slice(0, 5))
+    console.log(list)
+    // console.log(list[0].ConversionInfo.RAW[0].split('~'));
+    setCoins(list.slice(0, 10))
   }, []);
 
   const seeAll = () => {
@@ -45,18 +48,27 @@ const TabularData = () => {
             <th scope="col">#</th>
             <th scope="col">Coin</th>
             <th scope="col">Price</th>
-            <th scope="col">Volumn</th>
+            <th scope="col">Daily Volumn</th>
+            <th scope="col">Total Volumn</th>
             <th scope="col">Market Cap</th>
           </tr>
         </thead>
         <tbody>
           {coins.map((coin, index) =>
-            <tr key={coin.CoinInfo.id}>
+            <tr key={coin.id}>
               <td>{index + 1}</td>
-              <td>{coin.CoinInfo.Name}</td>
-              <td>TBC</td>
-              <td>{coin.ConversionInfo.TotalVolume24H}</td>
-              <td>{coin.ConversionInfo.Supply}</td>
+              <td>
+                <Link href={`/admin/${coin.symbol.toLowerCase()}`}>
+                  <div>
+                    <img src={`https://www.cryptocompare.com/${coin.imageUrl}`} width="25" alt={coin.fullName} />
+                    {coin.fullName} ({coin.symbol})
+                  </div>
+                </Link>
+              </td>
+              <td>{coin.price}</td>
+              <td>{coin.dailyVol}</td>
+              <td>{coin.totalVol}</td>
+              <td>{coin.marketCap}</td>
             </tr>
           )}
         </tbody>
