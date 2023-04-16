@@ -12,9 +12,11 @@ const constant = {
     updatePassword: "updatepassword",
     version: "v2/",
     top: "top/",
+    data: "data/",
     histominute: "histominute",
     totalvolfull: "totalvolfull",
     histohour: "histohour",
+    pricemultifull: "pricemultifull",
     //Socket Constants
     //     failure: { action: "failure", packet_code: 9900 },
     //Location Constants
