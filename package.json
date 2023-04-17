@@ -3,6 +3,9 @@
     "version": "0.0.1",
     "license": "MIT",
     "description": "Crypto Currency Visualization and Prediction",
+    "engines": {
+        "node": "16.x"
+    },
     "scripts": {
         "start": "next start",
         "build": "next build",
