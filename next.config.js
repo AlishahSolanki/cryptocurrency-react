@@ -13,6 +13,6 @@ module.exports = {
         API_TOKEN:
             "346a5653477eed39d369f3b05523c27a427a45ab31125be8a8dbf06cf4478d49",
         PORT: 3000,
-        BASE_URL: "http://localhost:3000/api/",
+        BASE_URL: "https://cryptocurrency-react-nine.vercel.app/api/",
     },
 };
