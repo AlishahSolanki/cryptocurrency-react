@@ -93,8 +93,7 @@ class MyApp extends App {
                         name="viewport"
                         content="width=device-width, initial-scale=1, shrink-to-fit=no"
                     />
-                    <title>AM Associates CPA</title>
-                    {/* <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> */}
+                    <title>Crypto Currency Visualization and Prediction</title>
                 </Head>
                 <PersistGate
                     onBeforeLift={this.onBeforeLift}

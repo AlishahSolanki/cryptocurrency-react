@@ -24,7 +24,6 @@ async function handleGetRequest(req, res) {
             `${process.env.BASE_URL_CRYPTO_COMPARE}${constant.pricemultifull}`,
             { params: { ...req.query, api_key: process.env.API_TOKEN } }
         );
-        console.log('Sanjib priceMultiful', response)
 
         res.status(response.status).json(response.data);
     } catch (error) {

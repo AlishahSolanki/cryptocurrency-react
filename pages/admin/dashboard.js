@@ -10,11 +10,7 @@ import Admin from "layouts/Admin.js";
 import { chartOptions, parseOptions } from "variables/charts.js";
 
 import Header from "components/Headers/Header.js";
-import MainChart from "./components/MainChart";
 import TabularData from "./components/TabularData";
-import PerformanceChart from "./components/PerformanceChart";
-import TabularData2 from "./components/TabularData2";
-import { useDispatch, useSelector } from "react-redux";
 
 const Dashboard = (props) => {
     if (window.Chart) {
@@ -24,18 +20,11 @@ const Dashboard = (props) => {
     return (
         <>
             <Header />
-            {/* Page content */}
             <Container className="mt--7" fluid>
                 <Row>
-                    <Col className="mb-5 mb-xl-0" xl="7">
-                        {/* <MainChart /> */}
-                    </Col>
                     <Col xl="12">
                         <TabularData />
                     </Col>
-                </Row>
-                <Row className="mt-5">
-                    <Col xl="4">{/* <PerformanceChart /> */}</Col>
                 </Row>
             </Container>
         </>

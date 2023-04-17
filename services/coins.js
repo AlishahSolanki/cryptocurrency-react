@@ -20,8 +20,9 @@ const formatCurrency = (amount) => {
 
 export const getAllCoins = async () => {
   try {
-    const res = await fetch('https://min-api.cryptocompare.com/data/top/totaltoptiervol?ascending=true&assetClass=ALL&limit=20&tsym=USD', { cache: 'no-store' })
-    const data = await res.json()
+    const res = await fetch(`${process.env.BASE_URL_CRYPTO_COMPARE}top/totaltoptiervol?limit=10&tsym=USD`, { cache: 'no-store' });
+    console.log(res);
+    const data = await res.json();
     return data.Data.map(coin => {
       const rawArr = coin.ConversionInfo?.RAW[0]?.split('~')
       return {
@@ -34,7 +35,7 @@ export const getAllCoins = async () => {
         marketCap: formatCurrency(rawArr[5] * coin.ConversionInfo.Supply),
         totalVol: formatCurrency(rawArr[5] * coin.ConversionInfo.TotalVolume24H),
         topTierVol: formatCurrency(rawArr[5] * coin.ConversionInfo.TotalTopTierVolume24H),
-        last7Days: rawArr.splice(15, 7)
+        last7Days: rawArr.splice(15, 6)
       }
       
       
