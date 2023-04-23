@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Container, Row, Col, CardTitle, Card, CardBody, CardHeader, Button } from "reactstrap";
 import { request } from "redux/actions/ServiceAction";
 import { DUMP } from "redux/actions/ActionTypes";
-import { Line } from "react-chartjs-2";
+import { Line, Bar } from "react-chartjs-2";
 import Admin from "layouts/Admin";
 import constant from "../../constants";
 import moment from "moment";
@@ -15,6 +15,7 @@ import {
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Title,
   Tooltip,
   Filler,
@@ -27,6 +28,7 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Title,
   Tooltip,
   Filler,
@@ -34,21 +36,48 @@ ChartJS.register(
 );
 
 const CoinDetail = () => {
-  const [chartBgFill, setChartBgFill] = useState(false);
-  const [chartType, setChartType] = useState('line');
+  const [chartType, setChartType] = useState('mixed');
   const [coinData, setCoinData] = useState(null);
   const [openCoin, setOpenCoin] = useState([]);
   const router = useRouter();
   const coin = router.query.CoinDetail?.toUpperCase();
   const dispatch = useDispatch();
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: true,
+        text: COINS[coin],
+      },
+      tooltip: {
+        yAlign: "bottom",
+        displayColors: false,
+        callbacks: {
+          label: (value) => `${value.raw.toLocaleString("en-US", { style: "currency", currency: "USD" })}`,
+          title: (value) => moment.unix(openCoin[value[0].dataIndex].time).format("MMM DD, hh:mm"),
+        },
+      },
+    },
+    scales: {
+      x: {
+        grid: { display: false },
+        ticks: { display: false }
+      },
+      y: {
+        grid: { display: false },
+        ticks: { display: false },
+        beginAtZero: false
+      },
+    }
+  }
 
   useEffect(() => {
     getDataEveryMin();
-  }, [coin]);
-
-  useEffect(() => {
-    getDataEveryMin();
-  }, [chartType]);
+  }, [coin, chartType]);
 
   const getDataEveryMin = () => {
     let params = {
@@ -64,19 +93,11 @@ const CoinDetail = () => {
         params,
         true,
         (res) => {
-          console.log(res)
           let open = res.data.Data;
           setOpenCoin(open);
           const newData = {
             labels: open.map((item) => item.open),
-            datasets: [
-              {
-                fill: chartBgFill,
-                data: open.map((item) => item.open),
-                borderColor: "rgb(53, 162, 235)",
-                backgroundColor: "rgba(53, 162, 235, 0.5)",
-              },
-            ],
+            datasets: getDataset(open),
           };
           setCoinData(newData);
         },
@@ -102,9 +123,49 @@ const CoinDetail = () => {
       minimumFractionDigits: 2,
     }).format(value);
 
+  const getDataset = (open) => {
+    switch(chartType) {
+      case 'line':
+      case 'bar':
+        return [{
+          fill: false,
+          data: open.map((item) => item.open),
+          borderColor: "rgb(53, 162, 235)",
+          backgroundColor: "rgba(53, 162, 235, 0.5)",
+        }];
+        break;
+      case 'area':
+        return [{
+          fill: true,
+          data: open.map((item) => item.open),
+          borderColor: "rgb(53, 162, 235)",
+          backgroundColor: "rgba(53, 162, 235, 0.5)",
+        }];
+        break;
+      default:
+        return [
+          {
+            label: 'Bar Dataset',
+            data: open.map((item) => item.open),
+            borderColor: "rgb(53, 162, 235)",
+            backgroundColor: "rgba(53, 162, 235, 0.5)",
+            order: 2
+          },
+          {
+            label: 'Line Dataset',
+            data: open.map((item) => item.open),
+            borderColor: "rgb(53, 162, 235)",
+            backgroundColor: "rgba(53, 162, 235, 0.5)",
+            type: 'line',
+            order: 2
+          }
+        ];
+        break;
+    }
+  }
+
   const changeViz = (type) => {
     setChartType(type);
-    type === 'area' ? setChartBgFill(true) : setChartBgFill(false);
   }
 
   return (
@@ -120,8 +181,10 @@ const CoinDetail = () => {
                       <h3 className="mb-0">Daily Chart</h3>
                     </div>
                     <div className="col text-right">
-                      <Button color={`${chartType === 'line' ? 'primary active': 'light'}`} onClick={() => changeViz('line')} size="sm" >Line Chart</Button>
-                      <Button color={`${chartType === 'area' ? 'primary active': 'light'}`} onClick={() => changeViz('area')} size="sm" >Area Chart</Button>
+                      <Button color={`${chartType === 'mixed' ? 'primary active' : 'light'}`} onClick={() => changeViz('mixed')} size="sm" >Mixed Chart</Button>
+                      <Button color={`${chartType === 'bar' ? 'primary active' : 'light'}`} onClick={() => changeViz('bar')} size="sm" >Bar Chart</Button>
+                      <Button color={`${chartType === 'line' ? 'primary active' : 'light'}`} onClick={() => changeViz('line')} size="sm" >Line Chart</Button>
+                      <Button color={`${chartType === 'area' ? 'primary active' : 'light'}`} onClick={() => changeViz('area')} size="sm" >Area Chart</Button>
                       {/* <Button color="light" onClick={() => changeViz('bar')} size="sm" >Bar Chart</Button> */}
                     </div>
                   </Row>
@@ -138,58 +201,31 @@ const CoinDetail = () => {
                       </span>
                     </div>
 
-                    <Col className="col-auto" style={{alignItems: "flex-start"}}>
+                    <Col className="col-auto" style={{ alignItems: "flex-start" }}>
                       <div className="icon icon-shape text-white rounded-circle shadow">
                         <img src={`https://www.cryptocompare.com/${COINS_IMG_URL[coin]}`} width={50} height={50} />
                       </div>
                     </Col>
                   </Row>
 
-                  <Row>
-                    {coinData && (
-                      <Line
-                        options={{
-                          responsive: true,
-                          maintainAspectRatio: false,
-                          plugins: {
-                            legend: {
-                              display: false,
-                            },
-                            title: {
-                              display: true,
-                              text: COINS[coin],
-                            },
-                            tooltip: {
-                              yAlign: "bottom",
-                              displayColors: false,
-                              callbacks: {
-                                label: (value) => `${value.raw.toLocaleString("en-US", {style:"currency", currency:"USD"})}`,
-                                title: (value) => moment.unix(openCoin[value[0].dataIndex].time).format("MMM DD, hh:mm"),
-                              },
-                            },
-                          },
-                          scales: {
-                            x: {
-                              grid: { display: false },
-                              ticks: { display: false }
-                            },
-                            y: {
-                              grid: { display: false },
-                              ticks: { display: false }
-                            },
-                          },
-                        }}
-                        data={coinData}
-                      />
-                    )}
-                  </Row>
+                  {/* <Row> */}
+                  {coinData && (
+                    <Row className="chart">
+                      {
+                        (chartType === 'bar' || chartType === 'mixed') ? 
+                          <Bar options={chartOptions} data={coinData} /> : 
+                          <Line options={chartOptions} data={coinData} />
+                      }
+                    </Row>
+                  )}
+                  {/* </Row> */}
 
                   <Row className="text-muted text-sm px-3 justify-content-between d-flex">
                     <div>
-                      <span className="text-success mr-2">
+                      {/* <span className="text-success mr-2">
                         <i className="fa fa-arrow-up" />{" "}
                         Just now
-                      </span>
+                      </span> */}
                     </div>
                     <div>
                       <span className="text-nowrap">

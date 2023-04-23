@@ -68,7 +68,7 @@ class MyApp extends App {
 
     callAPI = () => {
         // console.log("INITcallAPI", getCookies("token"));
-        HttpServiceManager.initialize(process.env.BASE_URL, {
+        HttpServiceManager.initialize(process.env.BASE_URL_CRYPTO_COMPARE, {
             // token: process.env.API_TOKEN,
         });
     };
