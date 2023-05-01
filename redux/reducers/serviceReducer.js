@@ -102,11 +102,3 @@ const deleteOperation = (state, action) => {
         return state;
     }
 };
-//_.result(this.data, "allemp.0.employee_name")
-// _.set(this.data, "allemp.1", {
-//     id: "16271109",
-//     employee_name: "lay",
-//     employee_salary: "14555",
-//     employee_age: "12",
-//     profile_image: ""
-// });

@@ -34,12 +34,6 @@ export const NETWORK_INFO = "NETWORK_INFO";
 //LOCATION ACTIONS
 export const USER_LOCATION = createRequestTypes("USER_LOCATION");
 //APP GENERAL ACTIONS
-export const LOGIN = createRequestTypes("LOGIN");
-export const SIGNUP = createRequestTypes("SIGNUP");
-export const FORGOT_PASSWORD = createRequestTypes("FORGOT_PASSWORD");
-export const CHANGE_PASSWORD = createRequestTypes("CHANGE_PASSWORD");
-export const LOGOUT = "LOGOUT";
-export const NO_INTERNET = "NO_INTERNET";
 export const DUMP = createRequestTypes("DUMP");
 //APP RELATED ACTIONS
 export const INFO = createRequestTypes("INFO");

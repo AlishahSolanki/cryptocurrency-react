@@ -36,15 +36,12 @@ function ChartCard({
     const dispatch = useDispatch();
     useEffect(() => {
         getDataGraph();
-        // setInterval(() => {
-        //     getPriceUpdates();
-        // }, 5000);
     }, []);
     const getDataGraph = () => {
         let params = {
             fsym: coinType,
             tsym: "USD",
-            limit: 20,
+            limit: 23,
         };
         dispatch(
             request(

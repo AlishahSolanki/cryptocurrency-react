@@ -13,9 +13,6 @@ function formatEIN(value) {
     const ein = value.replace(/[^\d]/g, "");
     const einLength = ein.length;
     if (einLength <= 2) return ein;
-    // if (einLength < 7) {
-    //     return `${ein.slice(0, 3)}-${ein.slice(3)}`;
-    // }
     return `${ein.slice(0, 2)}-${ein.slice(2, 9)}`;
 }
 function validSSN(value) {

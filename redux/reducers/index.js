@@ -7,21 +7,13 @@
 //
 import { combineReducers } from "redux";
 import serviceReducer from "./serviceReducer";
-import { LOGIN, LOGOUT, APP_STATE, INFO } from "../actions/ActionTypes";
+import { APP_STATE, INFO } from "../actions/ActionTypes";
 const appReducer = combineReducers({
-    loginReducer: serviceReducer(LOGIN),
     appState: serviceReducer(APP_STATE),
     infoReducer: serviceReducer(INFO),
 });
 
 const rootReducer = (state, action) => {
-    if (action.type === LOGOUT) {
-        const { loginReducer, ...rest } = state;
-        state = {
-            ...rest,
-            loginReducer: { ...loginReducer, data: [] },
-        };
-    }
     return appReducer(state, action);
 };
 

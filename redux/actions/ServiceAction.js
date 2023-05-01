@@ -1,14 +1,6 @@
-//
-//  ServiceAction.js:
-//  BoilerPlate
-//
-//  Created by Retrocube on 10/4/2019, 9:07:24 AM.
-//  Copyright © 2019 Retrocube. All rights reserved.
-//
-import { GENERAL_ACTION, LOGIN, LOGOUT, NO_INTERNET } from "./ActionTypes";
+import { GENERAL_ACTION } from "./ActionTypes";
 
 const callback = () => {};
-// import {isNetworkReachable, isConnected} from 'react-native-reachability-popup';
 export function request(
     types, //Action Type
     service, //Service url
@@ -18,11 +10,6 @@ export function request(
     successCB = callback,
     failureCB = callback
 ) {
-    //   if (!isNetworkReachable() && !isConnected()) {
-    //     return {
-    //       type: NO_INTERNET,
-    //     };
-    //   }
     return {
         payload: data,
         service,
@@ -47,15 +34,3 @@ export function failure(types, error) {
         type: types.FAILURE,
     };
 }
-export function logout() {
-    return {
-        type: LOGOUT,
-    };
-}
-
-// export function failure(errorMessage: Object) {
-//     return {
-//         errorMessage,
-//         type: LOGIN.FAILURE
-//     };
-// }

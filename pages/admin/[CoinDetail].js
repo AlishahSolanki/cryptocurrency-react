@@ -1,7 +1,7 @@
 
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Container, Row, Col, CardTitle, Card, CardBody, CardHeader, Button } from "reactstrap";
 import { request } from "redux/actions/ServiceAction";
 import { DUMP } from "redux/actions/ActionTypes";
@@ -83,7 +83,7 @@ const CoinDetail = () => {
     let params = {
       fsym: coin,
       tsym: "USD",
-      limit: 20,
+      limit: 23,
     };
     dispatch(
       request(
@@ -94,6 +94,7 @@ const CoinDetail = () => {
         true,
         (res) => {
           let open = res.data.Data;
+          console.log(open)
           setOpenCoin(open);
           const newData = {
             labels: open.map((item) => item.open),
@@ -222,10 +223,6 @@ const CoinDetail = () => {
 
                   <Row className="text-muted text-sm px-3 justify-content-between d-flex">
                     <div>
-                      {/* <span className="text-success mr-2">
-                        <i className="fa fa-arrow-up" />{" "}
-                        Just now
-                      </span> */}
                     </div>
                     <div>
                       <span className="text-nowrap">

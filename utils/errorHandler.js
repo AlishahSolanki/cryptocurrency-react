@@ -16,12 +16,6 @@ function serverErrorHandler(error) {
         errors = allErrors;
         message = Strings.errors.unprocessableEntity;
     }
-    // else {
-    //     return {
-    //         code: httpCodes.InternalServerError,
-    //         errors: { message: "Server Internal Error" },
-    //     };
-    // }
     return { code, errors, message };
 }
 
